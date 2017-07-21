@@ -1,9 +1,6 @@
-(function () {
+define(['./reverse', './insert', './roll'], function (reverse, insert, roll) {
     let commands = {
-        reverse: function () {
-            theArray.reverse();
-            terminal.value += theArray.join(' ') + '\n';
-        }
+        reverse, insert, roll
     };
     let theArray = [];
     let initialized = false;
@@ -11,26 +8,25 @@
     let terminal = document.getElementById('terminal');
     let input = document.getElementById('console');
     document.getElementById('submit').addEventListener('click', submit);
-    input.addEventListener('keypress', (e) => e.code === 'Enter' ? submit(): '' );
+    input.addEventListener('keypress', (e) => e.code === 'Enter' ? submit() : '');
 
     function submit() {
         let commandTokens = input.value.split(' ').filter(e => e !== '');
-        console.log('Submitted:'+ commandTokens);
-        if(!initialized){
+        if (!initialized) {
             theArray = commandTokens.slice(0);
-            input.value='';
-            initialized=true;
+            input.value = '';
+            initialized = true;
             terminal.value += theArray.join(' ') + '\n';
             return;
         }
 
         try {
-            commands[commandTokens[0]](commandTokens.slice(1));
-        }catch (err){
-            terminal.value+='Error: invalid command';
-        } finally{
-            input.value='';
+            theArray = commands[commandTokens[0]](theArray, commandTokens.slice(1));
+            terminal.value += theArray.join(' ') + '\n';
+        } catch (err) {
+            terminal.value += 'Error: invalid command';
+        } finally {
+            input.value = '';
         }
-
     }
-})();
+});
