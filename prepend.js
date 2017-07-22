@@ -1,9 +1,9 @@
-define([], function prepend(value) {
-    return (arr) => {
+define([], function prepend() {
+    return (array, [value]) => {
         if(typeof value === string && value !== '' ) {
-            
-            arr.unshift(value);
+           
+            array.unshift(value);
         }
-        return arr;
+        return array;
     }
 });
