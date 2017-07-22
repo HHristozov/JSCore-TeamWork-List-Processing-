@@ -1,10 +1,10 @@
-define([], function append() {
+define([], function prepend() {
 	return (array, [value]) => {
 		if (typeof value !== 'string' || value === '') {
 			throw new Error("Invalid value.");
 		}
 		else {
-			array.push(value);
+			array.unshift(value);
 			return array;
 		}
 	}
