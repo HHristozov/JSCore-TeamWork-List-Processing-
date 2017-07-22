@@ -1,6 +1,6 @@
-define(['./reverse', './insert', './roll','./sort', './append', './prepend', './delete'], function (reverse, insert, roll, sort, append, prepend, deleted) {
+define(['./reverse', './insert', './roll','./sort', './append', './prepend', './delete'], function (reverse, insert, roll, sort, append, prepend, delete) {
     let commands = {
-        reverse, insert, roll, sort,
+        reverse, insert, roll, sort, append, prepend, delete
     };
     let theArray = [];
     let initialized = false;
