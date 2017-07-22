@@ -1,32 +1,39 @@
-define(['./reverse', './insert', './roll','./sort', './append', './prepend', './delete'], function (reverse, insert, roll, sort, append, prepend, deleted) {
-    let commands = {
-        reverse, insert, roll, sort, append, prepend, deleted
-    };
-    let theArray = [];
-    let initialized = false;
+define(['./commands/reverse', './commands/insert', './commands/roll',
+    './commands/sort', './commands/append', './commands/prepend',
+    './commands/delete'],
+    function (reverse, insert, roll, sort, append, prepend, deleteItem) {
+        let commands = {
+            reverse, insert, roll, sort, append, prepend, delete: deleteItem
+        };
+        let theArray = [];
+        let initialized = false;
 
-    let terminal = document.getElementById('terminal');
-    let input = document.getElementById('console');
-    document.getElementById('submit').addEventListener('click', submit);
-    input.addEventListener('keypress', (e) => e.code === 'Enter' ? submit() : '');
+        let terminal = document.getElementById('terminal');
+        let input = document.getElementById('console');
+        document.getElementById('submit').addEventListener('click', submit);
+        input.addEventListener('keypress', (e) => e.code === 'Enter' ? submit() : '');
 
-    function submit() {
-        let commandTokens = input.value.split(' ').filter(e => e !== '');
-        if (!initialized) {
-            theArray = commandTokens.slice(0);
-            input.value = '';
-            initialized = true;
-            terminal.value += theArray.join(' ') + '\n';
-            return;
+        function submit() {
+            let commandTokens = input.value.split(' ').filter(e => e);
+            if (!initialized) {
+                theArray = commandTokens.slice(0);
+                input.value = '';
+                initialized = true;
+                terminal.value += `${theArray.join(' ')}\n`;
+                return;
+            }
+
+            let output;
+            try {
+                theArray = commands[commandTokens.shift()](theArray, commandTokens);
+                output = theArray.join(' ');
+            } catch (err) {
+                output = err instanceof TypeError ?
+                    'Invalid command.' : err.message;
+                output = `Error: ${output}`;
+            } finally {
+                terminal.value += `${output}\n`;
+                input.value = '';
+            }
         }
-
-        try {
-            theArray = commands[commandTokens[0]](theArray, commandTokens.slice(1));
-            terminal.value += theArray.join(' ') + '\n';
-        } catch (err) {
-            terminal.value += 'Error: invalid command\n';
-        } finally {
-            input.value = '';
-        }
-    }
-});
+    });
