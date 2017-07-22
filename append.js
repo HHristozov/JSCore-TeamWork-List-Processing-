@@ -1,5 +1,5 @@
-define([], function append(value) {
-    return (arr) => {
+define([], function append() {
+    return (arr, [value]) => {
         if(typeof value === string && value !== '' ) {
             arr.push(value);
         }
