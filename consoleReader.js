@@ -1,9 +1,9 @@
 define(['./commands/reverse', './commands/insert', './commands/roll',
     './commands/sort', './commands/append', './commands/prepend',
-    './commands/delete'],
-    function (reverse, insert, roll, sort, append, prepend, deleteItem) {
+    './commands/delete', './commands/end'],
+    function (reverse, insert, roll, sort, append, prepend, deleteItem, end) {
         let commands = {
-            reverse, insert, roll, sort, append, prepend, delete: deleteItem
+            reverse, insert, roll, sort, append, prepend, delete: deleteItem, end
         };
         let theArray = [];
         let initialized = false;
