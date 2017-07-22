@@ -1,4 +1,4 @@
-define(['./reverse', './insert', './roll','./sort'], function (reverse, insert, roll, sort) {
+define(['./reverse', './insert', './roll','./sort', './append', './prepend', './delete'], function (reverse, insert, roll, sort, append, prepend, deleted) {
     let commands = {
         reverse, insert, roll, sort,
     };
@@ -24,7 +24,7 @@ define(['./reverse', './insert', './roll','./sort'], function (reverse, insert, 
             theArray = commands[commandTokens[0]](theArray, commandTokens.slice(1));
             terminal.value += theArray.join(' ') + '\n';
         } catch (err) {
-            terminal.value += 'Error: invalid command';
+            terminal.value += 'Error: invalid command\n';
         } finally {
             input.value = '';
         }
