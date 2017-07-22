@@ -1,8 +1,17 @@
 define([], function append() {
     return (array, [value]) => {
-            array.push(value);
-        return array;
+	if(typeof value !== 'string' || value === ''){
+ 		throw new Error("Invalid value.");
+	}
+	else{
+		array.push(value);
+          	 return array;
+	}
+	   
     }
 });
+
+
+
 
 
