@@ -28,9 +28,17 @@ define(['./commands/reverse', './commands/insert', './commands/roll',
                 theArray = commands[commandTokens.shift()](theArray, commandTokens);
                 output = theArray.join(' ');
             } catch (err) {
-                output = err instanceof TypeError ?
-                    'Invalid command.' : err.message;
-                output = `Error: ${output}`;
+                if( output = err instanceof TypeError){
+			        output = 'Invalid command.'
+			        output = `Error: ${output}`;
+		        }
+		        else if(output = err instanceof RangeError){
+			        output = err.message;
+		        }
+		        else{
+			        output = err.message;
+      			    output = `Error: ${output}`;
+		        }
             } finally {
                 terminal.value += `${output}\n`;
                 input.value = '';
